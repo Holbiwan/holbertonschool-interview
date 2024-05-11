@@ -4,12 +4,18 @@
 
 def canUnlockAll(boxes):
     """Method that determines if all the boxes can be opened"""
-    keys = [0]
-    idx = 0
-    while idx < len(keys):
-        current_key = keys[idx]
-        for new_key in boxes[current_key]:
-            if new_key not in keys and new_key < len(boxes):
-                keys.append(new_key)
-        idx += 1
-    return len(keys) == len(boxes)
+    num_boxes = len(boxes)
+    unlocked = [False] * num_boxes
+
+    unlocked[0] = True
+
+    locked = [0]
+
+    while locked:
+        current = locked.pop()
+        for key in boxes[current]:
+            if 0 <= key < num_boxes and not unlocked[key]:
+                unlocked[key] = True
+                locked.append(key)
+
+    return all(unlocked)
