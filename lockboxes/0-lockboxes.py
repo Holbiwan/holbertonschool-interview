@@ -3,7 +3,14 @@
 
 
 def canUnlockAll(boxes):
-    """Method that determines if all the boxes can be opened"""
+    """_summary_
+
+    Args:
+        boxes (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     num_boxes = len(boxes)
     unlocked = [False] * num_boxes
 
