@@ -1,15 +1,18 @@
-#!/usr/bin/env python3
-"""0-lockboxes.py"""
+#!/usr/bin/python3
+"""
+Summary: Method that determines if all the boxes can be opened
+"""
 
 
 def canUnlockAll(boxes):
-    """_summary_
+    """
+    Determines if all the boxes can be opened
 
     Args:
-        boxes (_type_): _description_
+        boxes (list of lists): A list of lists where each inner list represents a box and its keys.
 
     Returns:
-        _type_: _description_
+        bool: True if all boxes can be opened, False otherwise.
     """
     num_boxes = len(boxes)
     unlocked = [False] * num_boxes
