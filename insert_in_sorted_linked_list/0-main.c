@@ -4,7 +4,7 @@
 #include "lists.h"
 
 /**
- * main - check the code for Holberton School students.
+ * main - create list and test insert in middle of list
  *
  * Return: Always 0.
  */
