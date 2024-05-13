@@ -1,4 +1,4 @@
-# Lockboxes
+#  Interview Preparation - Algorithms : Lockboxes
 ![lockboxes](https://zupimages.net/up/24/19/wt3o.png)
 
 ### 0. Lockboxes
@@ -17,3 +17,5 @@
     * There can be keys that do not have boxes
     * The first box boxes[0] is unlocked
     * Return True if all boxes can be opened, else return False
+
+* **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
