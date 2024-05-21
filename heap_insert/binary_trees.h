@@ -28,4 +28,7 @@ void binary_tree_print(const binary_tree_t *);
 /* Function prototype for creating a new binary tree node */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
 
+/* Function prototype for inserting a value into a Max Binary Heap */
+heap_t *heap_insert(heap_t **root, int value);
+
 #endif /* BINARY_TREES_H */
