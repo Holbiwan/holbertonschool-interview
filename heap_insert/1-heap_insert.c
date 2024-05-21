@@ -21,7 +21,6 @@ heap_t *heapify_up(heap_t *node)
 	}
 	return (node);
 }
-
 /**
  * binary_tree_insert - inserts a node into a binary tree at the first
  * available position (level-order)
@@ -74,7 +73,6 @@ heap_t *binary_tree_insert(heap_t **root, int value)
 	}
 	return (new_node);
 }
-
 /**
  * heap_insert - inserts a value into a Max Binary Heap
  * @root: double pointer to the root node of the Heap
