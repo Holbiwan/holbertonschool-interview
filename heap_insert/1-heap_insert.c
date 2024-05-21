@@ -21,14 +21,14 @@ heap_t *heapify_up(heap_t *node)
 	}
 	return (node);
 }
+
 /**
- * binary_tree_insert - inserts a node into a binary tree at the first
- * available position (level-order)
+ * insert_new_node - inserts a new node into a binary tree
  * @root: double pointer to the root node of the tree
  * @value: value to insert into the tree
  * Return: pointer to the new node, or NULL on failure
  */
-heap_t *binary_tree_insert(heap_t **root, int value)
+heap_t *insert_new_node(heap_t **root, int value)
 {
 	heap_t *new_node, *parent;
 	heap_t *queue[1024];
@@ -73,6 +73,7 @@ heap_t *binary_tree_insert(heap_t **root, int value)
 	}
 	return (new_node);
 }
+
 /**
  * heap_insert - inserts a value into a Max Binary Heap
  * @root: double pointer to the root node of the Heap
@@ -83,7 +84,7 @@ heap_t *heap_insert(heap_t **root, int value)
 {
 	heap_t *new_node;
 
-	new_node = binary_tree_insert(root, value);
+	new_node = insert_new_node(root, value);
 	if (new_node == NULL)
 		return (NULL);
 
