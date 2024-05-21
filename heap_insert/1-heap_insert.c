@@ -36,38 +36,41 @@ heap_t *binary_tree_insert(heap_t **root, int value)
     int head = 0, tail = 0;
 
     new_node = malloc(sizeof(heap_t));
-    if (!new_node)
+    if (new_node == NULL)
         return (NULL);
     new_node->n = value;
     new_node->left = NULL;
     new_node->right = NULL;
     new_node->parent = NULL;
 
-    if (!*root)
+    if (*root == NULL)
     {
         *root = new_node;
         return (new_node);
     }
 
     queue[tail++] = *root;
+
     while (head < tail)
     {
         parent = queue[head++];
-        if (!parent->left)
+        if (parent->left == NULL)
         {
             parent->left = new_node;
             new_node->parent = parent;
             return (new_node);
         }
-        queue[tail++] = parent->left;
+        else
+            queue[tail++] = parent->left;
 
-        if (!parent->right)
+        if (parent->right == NULL)
         {
             parent->right = new_node;
             new_node->parent = parent;
             return (new_node);
         }
-        queue[tail++] = parent->right;
+        else
+            queue[tail++] = parent->right;
     }
     return (new_node);
 }
@@ -83,7 +86,7 @@ heap_t *heap_insert(heap_t **root, int value)
     heap_t *new_node;
 
     new_node = binary_tree_insert(root, value);
-    if (!new_node)
+    if (new_node == NULL)
         return (NULL);
 
     return (heapify_up(new_node));
