@@ -12,4 +12,6 @@
 * Returns an integer
 * If n is impossible to achieve, return 0
 
+### AUTHOR
+
 * **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
