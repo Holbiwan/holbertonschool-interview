@@ -59,7 +59,7 @@ int is_stable(int grid[3][3])
 void topple(int grid[3][3])
 {
     int i, j;
-    int temp_grid[3][3] = {0};
+    int temp_grid[3][3] = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 
     for (i = 0; i < 3; ++i)
     {
