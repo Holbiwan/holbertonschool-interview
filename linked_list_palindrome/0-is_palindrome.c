@@ -18,14 +18,14 @@ int check_recursively(listint_t **start, listint_t *end)
     int check;
 
     if (end == NULL)
-        return 1;  // Base case: end of list
+        return 1;  /* Base case: end of list */
 
     check = check_recursively(start, end->next);
     if (check == 0)
-        return 0;  // Early termination if mismatch found
+        return 0;  /* Early termination if mismatch found */
 
     check = ((*start)->n == end->n) ? 1 : 0;
-    *start = (*start)->next;  // Advance start for next comparison
+    *start = (*start)->next;  /* Advance start for next comparison */
 
     return check;
 }
@@ -42,7 +42,7 @@ int check_recursively(listint_t **start, listint_t *end)
 int is_palindrome(listint_t **head)
 {
     if (*head == NULL)
-        return 1;  // Consider empty list a palindrome
+        return 1;  /* Consider empty list a palindrome */
 
     return check_recursively(head, *head);
 }
