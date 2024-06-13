@@ -79,8 +79,6 @@ $ ./palindrome
 98
 
 
-## Author
-* **Sabrina PAPEAU** [Github](https://github.com/Holbiwan)
 50
 972
 17
@@ -88,3 +86,6 @@ $ ./palindrome
 Linked list is a palindrome
 $
 ```
+
+## Author
+* **Sabrina PAPEAU** [Github](https://github.com/Holbiwan)
