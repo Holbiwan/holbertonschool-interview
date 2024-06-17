@@ -28,10 +28,7 @@ status_codes = {
 file_size = 0
 counter = 0
 pattern = re.compile(
-    r'^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}) - \['
-    r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}\] '
-    r'"GET /projects/260 HTTP/1\.1" (\d{3}) (\d+)$'
-)
+    r'\d+\.\d+\.\d+\.\d+ - \[.*\] "GET /projects/260 HTTP/1\.1" (\d+) (\d+)')
 
 try:
     for line in sys.stdin:
