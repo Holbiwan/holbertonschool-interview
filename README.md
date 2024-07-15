@@ -14,3 +14,16 @@
 | `insert_in_sorted_linked_list` | Inserts a node in a sorted singly linked list (`C`) |
 | `palindrome_integer` | Checks whether or not a given unsigned integer is a palindrome (`C`) |
 | `utf8_validation` | Determines if a given data set represents a valid UTF-8 encoding (`Python`) |
+
+
+## :sagittarius: Author
+
+> :woman: Sabrina Papeau
+
+> :e-mail: [E-mail](holbiwansabrina@gmail.com)
+
+> :octocat: [Github](https://github.com/Holbiwan)
+
+> [X](https://twitter.com/@Holbiwan_Place)
+
+> :blue_book: [Linkedin](https://www.linkedin.com/in/sabrina-p006566185)
