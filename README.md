@@ -20,8 +20,6 @@
 
 > :woman: Sabrina Papeau
 
-> :e-mail: [E-mail](holbiwansabrina@gmail.com)
-
 > :octocat: [Github](https://github.com/Holbiwan)
 
 > [X](https://twitter.com/@Holbiwan_Place)
