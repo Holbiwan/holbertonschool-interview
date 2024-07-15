@@ -4,7 +4,6 @@
 | Project name | Description |
 | ------------ | ----------- |
 | `lockboxes` | Checks if boxes in a list can be unlocked (`Python`) |
-| `insert_in_sorted_linked_list` | Inserts a node in a sorted singly linked list (`C`) |
 | `heap_insert` | Inserts a node in a binary tree & a binary heap tree (`C`) |
 | `minimum_operations` | Returns the minimum operations to reach n repetitions of H in a text editor with only two options (Copy All and Paste) (`Python`) |
 | `sandpiles` | Computes the sum of two sandpiles (`C`) |
@@ -14,3 +13,4 @@
 | `palindrome_integer` | Checks whether or not a given unsigned integer is a palindrome (`C`) |
 | `utf8_validation` | Determines if a given data set represents a valid UTF-8 encoding (`Python`) |
 | `slide_line` | Write a function that slides and merges an array of integers (`C`) |
+| `insert_in_sorted_linked_list` | Inserts a node in a sorted singly linked list (`C`) |
