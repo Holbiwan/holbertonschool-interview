@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-
 #include "palindrome.h"
+
 
 /**
  * main - Entry point
