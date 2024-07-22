@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 
+static char printer(int x, int y);
+
 /**
  * menger - Function that draws a 2D Menger Sponge
  * @level:  Level of the Menger Sponge to draw
@@ -26,8 +28,7 @@ void menger(int level)
 }
 
 /**
- * printer - Checks whether a "#" or a " "
- * 
+ * printer - Checks whether a "#" or a " " * 
  * corresponds to each coordinate point
  * @x: X coordinate (row)
  * @y: Y coordinate (column)
