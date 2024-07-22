@@ -1,36 +1,45 @@
+#include "menger.h"
 #include <stdio.h>
-#include <menger.h>
 #include <math.h>
 
 /**
- * menger - draws a 2D Menger Sponge
- * @level: level of the Menger Sponge to draw
+ * menger - Function that draws a 2D Menger Sponge
+ * @level:  Level of the Menger Sponge to draw
+ * Return: void
  */
 void menger(int level)
 {
-	int i, j, size, x, y;
-	char c;
+    int x, y, size;
 
-	if (level < 0)
-		return;
+    if (level < 0)
+        return;
 
-	size = pow(3, level);
-	for (i = 0; i < size; i++)
+    size = pow(3, level);
+    for (x = 0; x < size; x++)
     {
-		for (j = 0; j < size; j++)
+        for (y = 0; y < size; y++)
         {
-            x = i;
-            y = j;
-            c = '#';
-			while (x > 0 || y > 0)
-            {
-                if (x % 3 == 1 && y % 3 == 1)
-                    c = ' ';
-                x = x / 3;
-                y = y / 3;
-            }
-            putchar(c);
+            printf("%c", printer(x, y));
         }
-        putchar('\n');
-	}
+        printf("\n");
+    }
+}
+
+/**
+ * printer - Checks whether a "#" or a " "
+ * corresponds to each coordinate point
+ * @x: X coordinate (row)
+ * @y: Y coordinate (column)
+ * Return: '#' or ' '
+ */
+static char printer(int x, int y)
+{
+    while (x > 0 || y > 0)
+    {
+        if (x % 3 == 1 && y % 3 == 1)
+            return ' ';
+        x /= 3;
+        y /= 3;
+    }
+    return '#';
 }
