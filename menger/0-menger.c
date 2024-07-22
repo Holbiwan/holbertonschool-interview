@@ -27,6 +27,7 @@ void menger(int level)
 
 /**
  * printer - Checks whether a "#" or a " "
+ * 
  * corresponds to each coordinate point
  * @x: X coordinate (row)
  * @y: Y coordinate (column)
