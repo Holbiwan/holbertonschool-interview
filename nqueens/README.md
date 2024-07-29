@@ -18,7 +18,7 @@ and exit with the status 1
   - You dont have to print the solutions in a specific order
 - You are only allowed to import the sys module
 
-#### Example:
+### Example:
 ```
 julien@ubuntu:~/0x08. N Queens$ ./0-nqueens.py 4
 [[0, 1], [1, 3], [2, 0], [3, 2]]
