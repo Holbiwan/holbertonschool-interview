@@ -34,4 +34,4 @@ julien@ubuntu:~/0x08. N Queens$
 #### File:
 \[ [0-nqueens.py](0-nqueens.py) \]
 
-Author  :  * **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
+Author  :  **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
