@@ -1,117 +1,80 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "binary_trees.h"
 
 /**
- * print_t - Recursively stores each level of a binary tree in a buffer
+ * *binary_tree_node - builds an AVL tree from an array
  *
- * @tree: Pointer to the current node of the tree to print.
- * @offset: Horizontal offset for printing the current node.
- * @depth: Depth of the current node in the tree.
- * @s: Buffer to store the string representation of the tree.
+ * @parent: The array to be printed
+ * @index: Size of the array
+ * @array: Size of the array
  *
- * Return: Total width of the printed subtree.
+ * Return: binary tree on success, NULL on failure
  */
-static int print_t(const binary_tree_t *tree, int offset, int depth, char **s)
+avl_t *binary_tree_node(avl_t *parent, int index, int *array)
 {
-    char b[6]; // Buffer for node representation
-    int width, left, right, is_left, i;
+	avl_t *new_node = NULL;
 
-    if (!tree) // If the node is NULL, return 0 (no width)
-        return (0);
+	new_node = malloc(sizeof(avl_t));
+	if (!new_node)
+		return (NULL);
 
-    is_left = (tree->parent && tree->parent->left == tree);
-    width = sprintf(b, "(%03d)", tree->n);
+	new_node->left = new_node->right = NULL;
+	new_node->n = array[index];
+	new_node->parent = parent;
 
-    // Recursively print the left and right subtrees
-    left = print_t(tree->left, offset, depth + 1, s);
-    right = print_t(tree->right, offset + left + width, depth + 1, s);
-
-    // Copy the formatted string into the buffer at the appropriate position
-    for (i = 0; i < width; i++)
-        s[depth][offset + left + i] = b[i];
-
-    // Draw connecting lines for left children
-    if (depth && is_left)
-    {
-        for (i = 0; i < width + right; i++)
-            s[depth - 1][offset + left + width / 2 + i] = '-';
-        s[depth - 1][offset + left + width / 2] = '.';
-    }
-    // Draw connecting lines for right children
-    else if (depth && !is_left)
-    {
-        for (i = 0; i < left + width; i++)
-            s[depth - 1][offset - width / 2 + i] = '-';
-        s[depth - 1][offset + left + width / 2] = '.';
-    }
-
-    return (left + width + right);
+	return (new_node);
 }
 
 /**
- * _height - Measures the height of a binary tree.
+ * *sorted_array_to_avl - builds an AVL tree from an array
  *
- * @tree: Pointer to the root node of the tree to measure the height.
+ * @array: The array to be printed
+ * @size: Size of the array
  *
- * Return: Height of the tree starting at @tree.
+ * Return: binary tree on success, NULL on failure
  */
-static size_t _height(const binary_tree_t *tree)
+avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-    size_t height_l;
-    size_t height_r;
+	avl_t *new_node = NULL;
 
-    if (!tree)
-        return (0);
+	if (!array || !size)
+		return (NULL);
 
-    // Calculate the height of left and right subtrees recursively
-    height_l = tree->left ? 1 + _height(tree->left) : 0;
-    height_r = tree->right ? 1 + _height(tree->right) : 0;
 
-    // Return the larger of the two heights
-    return (height_l > height_r ? height_l : height_r);
+	new_node = SortedArrayToAVL(array, 0, size - 1, NULL);
+	return (new_node);
 }
 
 /**
- * binary_tree_print - Prints a binary tree.
+ * *SortedArrayToAVL - builds an AVL tree from an array
  *
- * @tree: Pointer to the root node of the tree to print.
+ * @array: The array to be printed
+ * @root: Size of the array
+ * @start: Size of the array
+ * @end: Size of the array
+ *
+ * Return: binary tree on success, NULL on failure
  */
-void binary_tree_print(const binary_tree_t *tree)
+avl_t *SortedArrayToAVL(int *array, size_t start, size_t end, avl_t *root)
 {
-    char **s;
-    size_t height, i, j;
+	size_t mid;
+	avl_t *new_node = NULL;
 
-    if (!tree) // Check if the tree is empty
-        return;
+	if (start > end)
+		return (NULL);
 
-    height = _height(tree); // Calculate the height of the tree
+	mid = (start + end) / 2;
 
-    // Allocate memory for the array of strings
-    s = malloc(sizeof(*s) * (height + 1));
-    if (!s)
-        return;
+	new_node = binary_tree_node(root, mid, array);
+	if (!new_node)
+		return (NULL);
 
-    // Allocate memory for each line of the tree and initialize with spaces
-    for (i = 0; i < height + 1; i++)
-    {
-        s[i] = malloc(sizeof(**s) * 255); // 255 is chosen for maximum width
-        if (!s[i])
-        {
-            // Free previously allocated memory in case of failure
-            for (size_t k = 0; k < i; k++)
-                free(s[k]);
-            free(s);
-            return;
-        }
-        memset(s[i], 32, 255); // Fill with spaces
-    }
+	if (mid != start)
+		new_node->left = SortedArrayToAVL(array, start, mid - 1,
+				new_node);
 
-    print_t(tree, 0, 0, s); // Call the recursive print function
+	if (mid != end)
+		new_node->right = SortedArrayToAVL(array, mid + 1, end,
+				new_node);
 
-    // Print each line of the tree and free the memory
-    for (i = 0; i < height + 1; i++)
-    {
-        for (j = 254; j > 1; --j)
-        {
+	return (new_node);
+}
