@@ -1,9 +1,9 @@
 #include "search_algos.h"
 
 /**
- * print_array - Entry point
+ * print_array - Entry of the program
  *
- * @array: Array
+ * @array: pointer to the first element of the array to search in
  * @first: Size of array
  * @last: Value to find
  * Return: Always EXIT_SUCCESS
@@ -20,9 +20,9 @@ void print_array(int *array, int first, int last)
 }
 
 /**
- * advanced_binary - Entry point
+ * advanced_binary - Entry of the program for advanced binary search
  *
- * @array: Array
+ * @array: pointer to the first element of the array to search in
  * @size: Size of array
  * @value: Value to find
  * Return: Always EXIT_SUCCESS
@@ -44,7 +44,7 @@ int advanced_binary(int *array, size_t size, int value)
 
 /**
  * recursive_search - Recursive advanced binary search
- * @array: Array
+ * @array: Array to search
  * @first: First element of array
  * @last: Last element of array
  * @value: Value to find
