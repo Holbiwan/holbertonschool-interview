@@ -50,6 +50,7 @@ int recursive_search(int *array, size_t first, size_t last, int value)
 
 	mid = first + (last - first) / 2;
 
+	/* Check if mid is the value */
 	if (array[mid] == value)
 	{
 		/* Check if it's the first occurrence */
@@ -58,8 +59,10 @@ int recursive_search(int *array, size_t first, size_t last, int value)
 		else
 			return (recursive_search(array, first, mid, value));
 	}
+	/* If the middle element is larger, search in the left half */
 	else if (array[mid] > value)
 		return (recursive_search(array, first, mid - 1, value));
+	/* If the middle element is smaller, search in the right half */
 	else
 		return (recursive_search(array, mid + 1, last, value));
 }
