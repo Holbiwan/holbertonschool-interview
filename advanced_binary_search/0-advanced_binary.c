@@ -46,6 +46,7 @@ int recursive_search(int *array, size_t first, size_t last, int value)
 	if (first > last)
 		return (-1);
 
+	/* Print the subarray */
 	print_array(array, (int)first, (int)last);
 
 	mid = first + (last - first) / 2;
@@ -59,9 +60,11 @@ int recursive_search(int *array, size_t first, size_t last, int value)
 		else
 			return (recursive_search(array, first, mid, value));
 	}
+
 	/* If the middle element is larger, search in the left half */
 	else if (array[mid] > value)
 		return (recursive_search(array, first, mid - 1, value));
+
 	/* If the middle element is smaller, search in the right half */
 	else
 		return (recursive_search(array, mid + 1, last, value));
