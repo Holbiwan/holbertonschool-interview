@@ -6,7 +6,7 @@
  * @array: pointer to the first element of the array to search in
  * @first: Size of array
  * @last: Value to find
- * Return: Always EXIT_SUCCESS
+ * Return: exit status
  */
 void print_array(int *array, int first, int last)
 {
@@ -25,7 +25,7 @@ void print_array(int *array, int first, int last)
  * @array: pointer to the first element of the array to search in
  * @size: Size of array
  * @value: Value to find
- * Return: Always EXIT_SUCCESS
+ * Return: exit status
  */
 int advanced_binary(int *array, size_t size, int value)
 {
@@ -48,7 +48,7 @@ int advanced_binary(int *array, size_t size, int value)
  * @first: First element of array
  * @last: Last element of array
  * @value: Value to find
- * Return: Always EXIT_SUCCESS
+ * Return: Index of value or -1
  */
 int recursive_search(int *array, size_t first, size_t last, int value)
 {
