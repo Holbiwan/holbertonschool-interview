@@ -1,10 +1,12 @@
 #include "search_algos.h"
 
 /**
- * print_array - Prints the array being searched
- * @array: array to print
- * @first: First index of the subarray
- * @last: Last index of the subarray
+ * print_array - Entry point
+ *
+ * @array: Array
+ * @first: Size of array
+ * @last: Value to find
+ * Return: Always EXIT_SUCCESS
  */
 void print_array(int *array, int first, int last)
 {
@@ -13,59 +15,57 @@ void print_array(int *array, int first, int last)
 	printf("Searching in array: ");
 	for (i = first; i < last; i++)
 		printf("%d, ", array[i]);
-	printf("%d\n", array[i]);
+	printf("%d", array[i]);
+	printf("\n");
 }
 
 /**
- * advanced_binary - Initiates the advanced binary search algorithm
- * @array: Array to search in
- * @size: Size of the array
- * @value: Value to search for
- * Return: Index of the first occurrence of value, or -1 if not found
+ * advanced_binary - Entry point
+ *
+ * @array: Array
+ * @size: Size of array
+ * @value: Value to find
+ * Return: Always EXIT_SUCCESS
  */
 int advanced_binary(int *array, size_t size, int value)
 {
+	size_t first;
+	size_t last;
+
 	if (!array)
 		return (-1);
 
-	return (recursive_search(array, 0, size - 1, value));
+	first = 0;
+	last = size - 1;
+	return (recursive_search(array, first, last, value));
+
 }
 
+
 /**
- * recursive_search - Recursive function to search for a value in the array
- * @array: Array to search in
- * @first: First index of the subarray
- * @last: Last index of the subarray
- * @value: Value to search for
- * Return: Index of the first occurrence of value, or -1 if not found
+ * recursive_search - Recursive advanced binary search
+ * @array: Array
+ * @first: First element of array
+ * @last: Last element of array
+ * @value: Value to find
+ * Return: Always EXIT_SUCCESS
  */
 int recursive_search(int *array, size_t first, size_t last, int value)
 {
-	size_t mid;
+	size_t half;
 
-	if (first > last)
-		return (-1);
-
-	/* Print the subarray */
-	print_array(array, (int)first, (int)last);
-
-	mid = first + (last - first) / 2;
-
-	/* Check if mid is the value */
-	if (array[mid] == value)
+	if (first < last)
 	{
-		/* Check if it's the first occurrence */
-		if (mid == first || array[mid - 1] != value)
-			return ((int)mid);
+		half = first + (last - first) / 2;
+		print_array(array, (int)first, (int)last);
+		if (array[half] >= value)
+			return (recursive_search(array, first, half, value));
 		else
-			return (recursive_search(array, first, mid, value));
+			return (recursive_search(array, half + 1, last, value));
+		return ((int)(half));
 	}
-
-	/* If the middle element is larger, search in the left half */
-	else if (array[mid] > value)
-		return (recursive_search(array, first, mid - 1, value));
-
-	/* If the middle element is smaller, search in the right half */
-	else
-		return (recursive_search(array, mid + 1, last, value));
+	if (array[first] == value)
+		return (first);
+	print_array(array, (int)first, (int)last);
+	return (-1);
 }
