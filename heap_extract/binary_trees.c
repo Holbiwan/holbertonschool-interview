@@ -9,16 +9,17 @@
  */
 heap_t *create_node(heap_t *parent, int n)
 {
-    heap_t *new_node = malloc(sizeof(heap_t));
-    if (!new_node)
-        return (NULL);
+heap_t *new_node = malloc(sizeof(heap_t));
 
-    new_node->n = n;
-    new_node->parent = parent;
-    new_node->left = NULL;
-    new_node->right = NULL;
+if (!new_node)
+	return (NULL);
 
-    return (new_node);
+	new_node->n = n;
+	new_node->parent = parent;
+	new_node->left = NULL;
+	new_node->right = NULL;
+
+	return (new_node);
 }
 
 /**
@@ -30,35 +31,35 @@ heap_t *create_node(heap_t *parent, int n)
  */
 heap_t *_array_to_heap(int *array, size_t size)
 {
-    heap_t *root = NULL, *node;
-    size_t i;
+	heap_t *root = NULL, *node;
+	size_t i;
 
-    for (i = 0; i < size; i++)
-    {
-        if (!root)
-        {
-            root = create_node(NULL, array[i]);
-            continue;
-        }
+	for (i = 0; i < size; i++)
+	{
+		if (!root)
+		{
+			root = create_node(NULL, array[i]);
+			continue;
+		}
 
-        node = root;
-        while (1)
-        {
-            if (!node->left)
-            {
-                node->left = create_node(node, array[i]);
-                break;
-            }
-            else if (!node->right)
-            {
-                node->right = create_node(node, array[i]);
-                break;
-            }
-            node = node->left;
-        }
-    }
+		node = root;
+		while (1)
+		{
+			if (!node->left)
+			{
+				node->left = create_node(node, array[i]);
+				break;
+			}
+			else if (!node->right)
+			{
+				node->right = create_node(node, array[i]);
+				break;
+			}
+			node = node->left;
+		}
+	}
 
-    return (root);
+	return (root);
 }
 
 /**
@@ -69,10 +70,11 @@ heap_t *_array_to_heap(int *array, size_t size)
  */
 void _binary_tree_delete(binary_tree_t *tree)
 {
-    if (!tree)
-        return;
+	if (!tree)
+		return;
 
-    _binary_tree_delete(tree->left);
-    _binary_tree_delete(tree->right);
-    free(tree);
+	_binary_tree_delete(tree->left);
+	_binary_tree_delete(tree->right);
+	free(tree);
 }
+#endif /* BINARY_TREE_H */

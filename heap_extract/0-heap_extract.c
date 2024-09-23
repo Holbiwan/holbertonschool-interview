@@ -9,9 +9,10 @@
  */
 void swap_nodes(heap_t *a, heap_t *b)
 {
-    int temp = a->n;
-    a->n = b->n;
-    b->n = temp;
+	int temp = a->n;
+
+	a->n = b->n;
+	b->n = temp;
 }
 
 /**
@@ -25,27 +26,27 @@ void swap_nodes(heap_t *a, heap_t *b)
  */
 heap_t *last_node(heap_t *root)
 {
-    heap_t *last = NULL;
-    heap_t **queue;
-    int front = 0, rear = 0, size = 1024;
+	heap_t *last = NULL;
+	heap_t **queue;
+	int front = 0, rear = 0, size = 1024;
 
-    queue = malloc(size * sizeof(heap_t *));
-    if (!queue)
-        return (NULL);
+	queue = malloc(size * sizeof(heap_t *));
+	if (!queue)
+		return (NULL);
 
-    queue[rear++] = root;
+	queue[rear++] = root;
 
-    while (front < rear)
-    {
-        last = queue[front++];
-        if (last->left)
-            queue[rear++] = last->left;
-        if (last->right)
-            queue[rear++] = last->right;
-    }
+	while (front < rear)
+	{
+		last = queue[front++];
+		if (last->left)
+			queue[rear++] = last->left;
+		if (last->right)
+			queue[rear++] = last->right;
+	}
 
-    free(queue);
-    return (last);
+	free(queue);
+	return (last);
 }
 
 /**
@@ -57,21 +58,21 @@ heap_t *last_node(heap_t *root)
  */
 void sift_down(heap_t *root)
 {
-    heap_t *largest = root;
+	heap_t *largest = root;
 
-    while (1)
-    {
-        if (root->left && root->left->n > largest->n)
-            largest = root->left;
-        if (root->right && root->right->n > largest->n)
-            largest = root->right;
+	while (1)
+	{
+		if (root->left && root->left->n > largest->n)
+			largest = root->left;
+		if (root->right && root->right->n > largest->n)
+			largest = root->right;
 
-        if (largest == root)
-            break;
+		if (largest == root)
+			break;
 
-        swap_nodes(root, largest);
-        root = largest;
-    }
+		swap_nodes(root, largest);
+		root = largest;
+	}
 }
 
 /**
@@ -85,33 +86,33 @@ void sift_down(heap_t *root)
  */
 int heap_extract(heap_t **root)
 {
-    heap_t *last;
-    int extracted_value;
+	heap_t *last;
+	int extracted_value;
 
-    if (!root || !*root)
-        return (0);
+	if (!root || !*root)
+		return (0);
 
-    extracted_value = (*root)->n;
+	extracted_value = (*root)->n;
 
-    /* If there's only one node, free it and return the value */
-    if (!(*root)->left && !(*root)->right)
-    {
-        free(*root);
-        *root = NULL;
-        return (extracted_value);
-    }
+	/* If there's only one node, free it and return the value */
+	if (!(*root)->left && !(*root)->right)
+	{
+		free(*root);
+		*root = NULL;
+		return (extracted_value);
+	}
 
-    last = last_node(*root);
-    swap_nodes(*root, last);
+	last = last_node(*root);
+	swap_nodes(*root, last);
 
-    /* Remove last node */
-    if (last->parent->left == last)
-        last->parent->left = NULL;
-    else
-        last->parent->right = NULL;
+	/* Remove last node */
+	if (last->parent->left == last)
+		last->parent->left = NULL;
+	else
+		last->parent->right = NULL;
 
-    free(last);
-    sift_down(*root);
+	free(last);
+	sift_down(*root);
 
-    return (extracted_value);
+	return (extracted_value);
 }
