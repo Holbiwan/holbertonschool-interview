@@ -42,6 +42,18 @@ char *_callocX(unsigned int nmemb)
 }
 
 /**
+ * free_resources - Frees allocated memory
+ * @res: pointer to the result array to be freed
+ *
+ * This function is used to free all dynamically allocated memory.
+ */
+void free_resources(char *res)
+{
+    if (res != NULL)
+        free(res);
+}
+
+/**
  * main - Multiplies two large positive numbers passed as command-line arguments
  * @argc: Number of command-line arguments
  * @argv: Array of command-line argument strings
@@ -107,7 +119,7 @@ int main(int argc, char **argv)
     printf("\n");
 
     // Free the allocated memory
-    free(res);
+    free_resources(res);
 
     return (0);
 }
