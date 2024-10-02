@@ -1,49 +1,108 @@
-#include <stdio.h>    // for putchar
-#include <stdlib.h>   // for calloc, free
-#include <string.h>   // for strlen
+#include "holberton.h"
+#include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
+#include <unistd.h>
 
-void multiply(char *num1, char *num2) {
-    int len1 = strlen(num1);
-    int len2 = strlen(num2);
-    int *result = calloc(len1 + len2, sizeof(int));
-    int i, j;
+/**
+ * mul - multiplies two positive numbers
+ * @num1: the first number
+ * @num2: the second number
+ *
+ * Return: void (no return value)
+ */
+void mul(char *num1, char *num2)
+{
+	int len1, len2, i, j, carry;
+	int *result;
 
-    // Loop through each digit of num1 and num2
-    for (i = len1 - 1; i >= 0; i--) {
-        int carry = 0;
-        for (j = len2 - 1; j >= 0; j--) {
-            int product = (num1[i] - '0') * (num2[j] - '0');
-            int temp_sum = product + result[i + j + 1] + carry;
-            result[i + j + 1] = temp_sum % 10;
-            carry = temp_sum / 10;
-        }
-        result[i + j + 1] += carry;
-    }
+	len1 = _strlen(num1);
+	len2 = _strlen(num2);
 
-    // Print result, skipping leading zeros
-    int started = 0;
-    for (i = 0; i < len1 + len2; i++) {
-        if (result[i] != 0) {
-            started = 1;
-        }
-        if (started) {
-            putchar(result[i] + '0');
-        }
-    }
-    if (!started) {
-        putchar('0');  // In case the result is zero
-    }
-    putchar('\n');
+	result = calloc(len1 + len2, sizeof(int));
+	if (result == NULL)
+	{
+		write(STDERR_FILENO, "Error\n", 6);
+		exit(98);
+	}
 
-    free(result);
+	for (i = len1 - 1; i >= 0; i--)
+	{
+		carry = 0;
+		for (j = len2 - 1; j >= 0; j--)
+		{
+			int tmp = (num1[i] - '0') * (num2[j] - '0') + result[i + j + 1] + carry;
+
+			result[i + j + 1] = tmp % 10;
+			carry = tmp / 10;
+		}
+		result[i + j + 1] = carry;
+	}
+
+	i = 0;
+	while (i < len1 + len2 && result[i] == 0)
+		i++;
+
+	if (i == len1 + len2)
+		_putchar('0');
+	else
+		for (; i < len1 + len2; i++)
+			_putchar(result[i] + '0');
+	_putchar('\n');
+
+	free(result);
 }
 
-int main(int argc, char *argv[])
+/**
+ * _strlen - calculates the length of a string
+ * @str: the string to calculate the length of
+ *
+ * Return: the length of the string
+ */
+int _strlen(char *str)
 {
-    if (argc != 3) {
-        printf("Error\n");
-        return (98);
-    }
-    multiply(argv[1], argv[2]);
-    return (0);
+	int count = 0;
+
+	while (*str)
+	{
+		count++;
+		str++;
+	}
+	return (count);
+}
+
+/**
+ * _isdigit - checks if a string contains only digits
+ * @str: the string to check
+ *
+ * Return: 1 if all characters are digits, otherwise 0
+ */
+int _isdigit(char *str)
+{
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+/**
+ * main - Entry point for the program.
+ * @argc: The number of arguments passed to the program.
+ * @argv: An array of pointers to the arguments.
+ *
+ * Return: On success, returns 0.
+ */
+int main(int argc, char **argv)
+{
+	if (argc != 3 || !_isdigit(argv[1]) || !_isdigit(argv[2]))
+	{
+		write(STDERR_FILENO, "Error\n", 6), exit(98);
+	}
+
+	mul(argv[1], argv[2]);
+
+	return (0);
 }
