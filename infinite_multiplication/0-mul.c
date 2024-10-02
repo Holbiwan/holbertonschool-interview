@@ -1,80 +1,46 @@
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
+#include <stdio.h>    // for putchar
+#include <stdlib.h>   // for calloc, free
+#include <string.h>   // for strlen
 
-/**
- * _isnumber - checks if string is a number
- * @s: string to check
- * Return: 1 if the string is a number, 0 otherwise
- */
-int _isnumber(char *s)
-{
-    for (int i = 0; s[i]; i++)
-        if (!isdigit(s[i]))
-            return (0);
-    return (1);
-}
-
-/**
- * _callocX - allocates memory and initializes it to '0'
- * @nmemb: number of elements
- * Return: pointer to allocated memory, NULL on failure
- */
-char *_callocX(unsigned int nmemb)
-{
-    char *p = malloc(nmemb + 1); // +1 for null terminator
-    if (!p)
-        return (NULL);
-    for (unsigned int i = 0; i < nmemb; i++)
-        p[i] = '0';
-    p[nmemb] = '\0'; // Null-terminate the string
-    return (p);
-}
-
-/**
- * multiply - multiplies two numbers represented as strings
- * @num1: first number
- * @num2: second number
- */
-void multiply(char *num1, char *num2)
-{
+void multiply(char *num1, char *num2) {
     int len1 = strlen(num1);
     int len2 = strlen(num2);
-    int len_res = len1 + len2;
-    char *res = _callocX(len_res);  // Allocate result array of len1 + len2
+    int *result = calloc(len1 + len2, sizeof(int));
+    int i, j;
 
-    if (!res)
-        exit(98);
-
-    // Multiply digits one by one
-    for (int i = len1 - 1; i >= 0; i--) {
+    // Loop through each digit of num1 and num2
+    for (i = len1 - 1; i >= 0; i--) {
         int carry = 0;
-        for (int j = len2 - 1; j >= 0; j--) {
-            int product = (num1[i] - '0') * (num2[j] - '0') + (res[i + j + 1] - '0') + carry;
-            carry = product / 10;
-            res[i + j + 1] = (product % 10) + '0';  // Store result in correct position
+        for (j = len2 - 1; j >= 0; j--) {
+            int product = (num1[i] - '0') * (num2[j] - '0');
+            int temp_sum = product + result[i + j + 1] + carry;
+            result[i + j + 1] = temp_sum % 10;
+            carry = temp_sum / 10;
         }
-        res[i + len2] += carry;  // Add remaining carry to the next left position
+        result[i + j + 1] += carry;
     }
 
-    // Skip leading zeros
-    int start = 0;
-    while (start < len_res && res[start] == '0')
-        start++;
+    // Print result, skipping leading zeros
+    int started = 0;
+    for (i = 0; i < len1 + len2; i++) {
+        if (result[i] != 0) {
+            started = 1;
+        }
+        if (started) {
+            putchar(result[i] + '0');
+        }
+    }
+    if (!started) {
+        putchar('0');  // In case the result is zero
+    }
+    putchar('\n');
 
-    // Print result, or "0" if all digits are zero
-    if (start == len_res)
-        printf("0\n");
-    else
-        printf("%s\n", res + start);
-
-    free(res);
+    free(result);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-    if (argc != 3 || !_isnumber(argv[1]) || !_isnumber(argv[2])) {
+    if (argc != 3) {
         printf("Error\n");
         return (98);
     }
