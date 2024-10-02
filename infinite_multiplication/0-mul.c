@@ -1,104 +1,83 @@
-#include "holberton.h"
+#include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
 
 /**
- * _isnumber - checks if a string is a valid number
- * @s: the string to check
- * Return: 1 if valid, 0 otherwise
+ * _isnumber - checks if string is a number
+ * @s: string to check
+ * Return: 1 if the string is a number, 0 otherwise
  */
 int _isnumber(char *s)
 {
-    while (*s)
-    {
-        if (*s < '0' || *s > '9')
+    for (int i = 0; s[i]; i++)
+        if (!isdigit(s[i]))
             return (0);
-        s++;
-    }
     return (1);
 }
 
 /**
- * _callocX - allocates memory initialized to '0'
- * @nmemb: number of bytes to allocate
- * Return: pointer to the allocated memory
+ * _callocX - allocates memory and initializes it to '0'
+ * @nmemb: number of elements
+ * Return: pointer to allocated memory, NULL on failure
  */
 char *_callocX(unsigned int nmemb)
 {
-    char *p;
-    unsigned int i;
-
-    p = malloc(nmemb);
+    char *p = malloc(nmemb + 1); // +1 for null terminator
     if (!p)
         return (NULL);
-    for (i = 0; i < nmemb; i++)
+    for (unsigned int i = 0; i < nmemb; i++)
         p[i] = '0';
+    p[nmemb] = '\0'; // Null-terminate the string
     return (p);
 }
 
 /**
- * multiply - multiplies two large numbers as strings
+ * multiply - multiplies two numbers represented as strings
  * @num1: first number
  * @num2: second number
  */
 void multiply(char *num1, char *num2)
 {
-    int len1 = 0, len2 = 0, i, j, carry, product;
-	
-    char *result;
+    int len1 = strlen(num1);
+    int len2 = strlen(num2);
+    int len_res = len1 + len2;
+    char *res = _callocX(len_res);  // Allocate result array of len1 + len2
 
-    while (num1[len1])
-        len1++;
-    while (num2[len2])
-        len2++;
-
-    result = _callocX(len1 + len2);
-    if (!result)
-    {
-        printf("Error\n");
+    if (!res)
         exit(98);
-    }
 
-    for (i = len1 - 1; i >= 0; i--)
-    {
-        carry = 0;
-        for (j = len2 - 1; j >= 0; j--)
-        {
-            product = (num1[i] - '0') * (num2[j] - '0') + carry + (result[i + j + 1] - '0');
+    // Multiply digits one by one
+    for (int i = len1 - 1; i >= 0; i--) {
+        int carry = 0;
+        for (int j = len2 - 1; j >= 0; j--) {
+            int product = (num1[i] - '0') * (num2[j] - '0') + (res[i + j + 1] - '0') + carry;
             carry = product / 10;
-            result[i + j + 1] = (product % 10) + '0';
+            res[i + j + 1] = (product % 10) + '0';  // Store result in correct position
         }
-        result[i + j + 1] += carry;
+        res[i + len2] += carry;  // Add remaining carry to the next left position
     }
 
-    i = 0;
-    while (result[i] == '0' && result[i + 1])
-        i++;
+    // Skip leading zeros
+    int start = 0;
+    while (start < len_res && res[start] == '0')
+        start++;
 
-    while (result[i])
-    {
-        _putchar(result[i]);
-        i++;
-    }
-    _putchar('\n');
-    free(result);
+    // Print result, or "0" if all digits are zero
+    if (start == len_res)
+        printf("0\n");
+    else
+        printf("%s\n", res + start);
+
+    free(res);
 }
 
-/**
- * main - multiplies two positive numbers
- * @argc: argument count
- * @argv: argument vector
- * Return: 0 on success, 98 on failure
- */
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-    if (argc != 3 || !_isnumber(argv[1]) || !_isnumber(argv[2]))
-    {
+    if (argc != 3 || !_isnumber(argv[1]) || !_isnumber(argv[2])) {
         printf("Error\n");
-        exit(98);
+        return (98);
     }
-
     multiply(argv[1], argv[2]);
-
     return (0);
 }
