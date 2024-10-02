@@ -1,92 +1,104 @@
-#include <string.h>
+#include "holberton.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include <ctype.h>
+
 /**
- * _isnumber - checks if string is number
- *
- * @s: string
- *
- * Return: 1 if number, 0 if not
+ * _isnumber - checks if a string is a valid number
+ * @s: the string to check
+ * Return: 1 if valid, 0 otherwise
  */
 int _isnumber(char *s)
 {
-	int i, check, d;
-
-	d = 0, check = 1;
-	for (i = 0; *(s + i) != 0; i++)
-	{
-		d = isdigit(*(s + i));
-		if (d == 0)
-		{
-			check = 0;
-			break;
-		}
-	}
-	return (check);
+    while (*s)
+    {
+        if (*s < '0' || *s > '9')
+            return (0);
+        s++;
+    }
+    return (1);
 }
 
 /**
- * _callocX - reserves memory initialized to 0
- *
- * @nmemb: # of bytes
- *
- * Return: pointer
+ * _callocX - allocates memory initialized to '0'
+ * @nmemb: number of bytes to allocate
+ * Return: pointer to the allocated memory
  */
 char *_callocX(unsigned int nmemb)
 {
-	unsigned int i;
-	char *p;
+    char *p;
+    unsigned int i;
 
-	p = malloc(nmemb + 1);
-	if (p == 0)
-		return (0);
-	for (i = 0; i < nmemb; i++)
-		p[i] = '0';
-	p[i] = '\0';
-	return (p);
+    p = malloc(nmemb);
+    if (!p)
+        return (NULL);
+    for (i = 0; i < nmemb; i++)
+        p[i] = '0';
+    return (p);
 }
 
 /**
- * main - multiplies inf numbers
- *
- * @argc: # of cmd line args
- * @argv: cmd line args
- * Return: No return
+ * multiply - multiplies two large numbers as strings
+ * @num1: first number
+ * @num2: second number
  */
-int main(int argc, char **argv)
+void multiply(char *num1, char *num2)
 {
-	int i, j, l1, l2, lful, mul, add, ten, ten2, tl, zer = 0;
-	char *res;
+    int len1 = 0, len2 = 0, i, j, carry, product;
+	
+    char *result;
 
-	if (argc != 3 || _isnumber(argv[1]) == 0 || _isnumber(argv[2]) == 0)
-		printf("Error\n"), exit(98);
-	if (atoi(argv[1]) == 0 || atoi(argv[2]) == 0)
-		printf("0\n"), exit(0);
-	l1 = strlen(argv[1]), l2 = strlen(argv[2]);
-	lful = l1 + l2;
-	res = _callocX(lful);
-	if (res == 0)
-		printf("Error\n"), exit(98);
-	for (i = l2 - 1; i >= 0; i--)
-	{
-		ten = 0, ten2 = 0;
-		for (j = l1 - 1; j >= 0; j--)
-		{
-			tl = i + j + 1;
-			mul = (argv[1][j] - '0') * (argv[2][i] - '0') + ten;
-			ten = mul / 10;
-			add = (res[tl] - '0') + (mul % 10) + ten2;
-			ten2 = add / 10;
-			res[tl] = (add % 10) + '0';
-		}
-		res[tl - 1] = (ten + ten2) + '0';
-	}
-	if (res[0] == '0')
-		zer = 1;
-	for (; zer < lful; zer++)
-		printf("%c", res[zer]);
-	printf("\n");
-	free(res);
-	return (0);
+    while (num1[len1])
+        len1++;
+    while (num2[len2])
+        len2++;
+
+    result = _callocX(len1 + len2);
+    if (!result)
+    {
+        printf("Error\n");
+        exit(98);
+    }
+
+    for (i = len1 - 1; i >= 0; i--)
+    {
+        carry = 0;
+        for (j = len2 - 1; j >= 0; j--)
+        {
+            product = (num1[i] - '0') * (num2[j] - '0') + carry + (result[i + j + 1] - '0');
+            carry = product / 10;
+            result[i + j + 1] = (product % 10) + '0';
+        }
+        result[i + j + 1] += carry;
+    }
+
+    i = 0;
+    while (result[i] == '0' && result[i + 1])
+        i++;
+
+    while (result[i])
+    {
+        _putchar(result[i]);
+        i++;
+    }
+    _putchar('\n');
+    free(result);
+}
+
+/**
+ * main - multiplies two positive numbers
+ * @argc: argument count
+ * @argv: argument vector
+ * Return: 0 on success, 98 on failure
+ */
+int main(int argc, char *argv[])
+{
+    if (argc != 3 || !_isnumber(argv[1]) || !_isnumber(argv[2]))
+    {
+        printf("Error\n");
+        exit(98);
+    }
+
+    multiply(argv[1], argv[2]);
+
+    return (0);
 }
