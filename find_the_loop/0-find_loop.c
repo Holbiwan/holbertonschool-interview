@@ -1,6 +1,5 @@
 #include "lists.h"
 #include <stdio.h>
-
 /**
  * find_listint_loop - Find the beginning of a loop in a linked list.
  * @head: A pointer to the head of the linked list.
@@ -9,27 +8,32 @@
  */
 listint_t *find_listint_loop(listint_t *head)
 {
-    listint_t *slow = head;
-    listint_t *fast = head;
+	listint_t *hare, *tortoise;
 
-    if (!head)
-        return (NULL);
+	if (!head)
+		return (NULL);
 
-    while (slow && fast && fast->next)
-    {
-        slow = slow->next;
-        fast = fast->next->next;
+	hare = tortoise = head;
 
-        if (slow == fast)
-        {
-            slow = head;
-            while (slow != fast)
-            {
-                slow = slow->next;
-                fast = fast->next;
-            }
-            return (fast);
-        }
-    }
-    return (NULL);
+	while (tortoise && hare && hare->next)
+	{
+		tortoise = tortoise->next;
+		hare = (hare->next)->next;
+
+		if (hare == tortoise)
+		{
+			tortoise = head;
+
+			while (tortoise && hare)
+			{
+				if (tortoise == hare)
+					return (tortoise);
+
+				tortoise = tortoise->next;
+				hare = hare->next;
+			}
+		}
+	}
+
+	return (NULL);
 }
