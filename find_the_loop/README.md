@@ -47,13 +47,7 @@ listint_t *find_listint_loop(listint_t *head);
 #endif
 ```
 
-
-
-## Whiteboarding
-
-![](whiteboard1.jpg)
-
-## Task
+## Tasks
 
 **0. Find the loop**
 
