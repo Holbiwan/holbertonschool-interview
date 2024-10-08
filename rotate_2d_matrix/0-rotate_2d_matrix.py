@@ -16,13 +16,12 @@ def rotate_2d_matrix(matrix):
     -------
     None
     """
-    
     # Copy the original matrix for reference
     copy = matrix[:]
 
     for i in range(len(matrix)):
         # Extract the i-th column from the copy
         col_i = [row[i] for row in copy]
-        
+
         # Replace the i-th row with the reversed column
         matrix[i] = col_i[::-1]
