@@ -1,4 +1,4 @@
-![merge sort](https://zupimages.net/up/24/42/qa6z.png)
+<img src="https://zupimages.net/up/24/42/qa6z.png" alt="merge sort" width="400">
 
 # Requirements
 
