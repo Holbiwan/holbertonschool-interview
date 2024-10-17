@@ -325,5 +325,6 @@ Merging...
 
 7, 13, 19, 48, 52, 71, 73, 86, 96, 99
 alexa@ubuntu-xenial:0x18-merge_sort$
+```
 
-Author  :  * **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
+## Author  :  * **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
