@@ -1,4 +1,6 @@
-<img src="https://zupimages.net/up/24/42/qa6z.png" alt="merge sort" width="400">
+<div style="text-align: center;">
+    <img src="https://zupimages.net/up/24/42/qa6z.png" alt="merge sort" width="700">
+</div>
 
 # Requirements
 
