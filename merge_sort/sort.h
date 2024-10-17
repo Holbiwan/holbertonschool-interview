@@ -2,11 +2,14 @@
 #define SORT_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
-/* Print function */
+/* Print Function */
+
 void print_array(const int *array, size_t size);
 
-/* Sort function*/
+/* Sort Function */
+
 void merge_sort(int *array, size_t size);
 
 #endif /* SORT_H */
