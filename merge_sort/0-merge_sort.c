@@ -3,7 +3,7 @@
 #include "sort.h"
 
 /**
- * copy - copies data from one buffer to another
+ * copy - copies content of source array to the destination array
  *
  * @src: source buffer
  * @dst: destination buffer
@@ -19,8 +19,8 @@ void copy(int *src, int *dst, int size)
 		dst[i] = src[i];
 }
 /**
- * merge - merges two sets of data in ascending order
- * but they must already be sorted before hand
+ * merge - merges two sorted subarrays into one
+ * 
  * @array: first set of data
  * @buff: second set of data
  * @minL: lower range of first set of data
@@ -48,11 +48,11 @@ void merge(int *array, int *buff, int minL, int maxL, int minR, int maxR)
 			array[k] = buff[i], k++, i++;
 }
 /**
- * printcheck - prints an array in a given range
+ * printcheck - prints elements of array within a range
  *
- * @array: array of data to be print
- * @r1: start of range
- * @r2: end of range
+ * @array: Array to print from
+ * @r1: start index of range
+ * @r2: ending index of range
  *
  * Return: No Return
  */
@@ -69,7 +69,7 @@ void printcheck(int *array, int r1, int r2)
 	printf("\n");
 }
 /**
- * split - recursive function to split data into merge tree
+ * split - Recursively splits array and merges back 
  *
  * @array: array of data to be split
  * @buff: auxiliary array of data for merging
