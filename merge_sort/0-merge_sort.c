@@ -5,99 +5,58 @@
 /**
  * merge - Merges two subarrays of array in sorted order.
  * @array: The original array to be sorted.
+ * @temp: A temporary buffer for merging.
  * @start: The starting index of the first subarray.
  * @mid: The middle index of the first subarray.
  * @end: The ending index of the second subarray.
  */
-void merge(int *array, int start, int mid, int end)
+void merge(int *array, int *temp, int start, int mid, int end)
 {
-    int left_iter, right_iter, array_iter;
-    int left_size = mid - start + 1;
-    int right_size = end - mid;
-
-    /* Allocate memory for left and right subarrays */
-    int *left = malloc(left_size * sizeof(int));
-    int *right = malloc(right_size * sizeof(int));
-
-    if (!left || !right)
-        return;  /* Handle allocation failure */
-
-    /* Copy data to the left and right subarrays */
-    for (left_iter = 0; left_iter < left_size; left_iter++)
-        left[left_iter] = array[start + left_iter];
-    for (right_iter = 0; right_iter < right_size; right_iter++)
-        right[right_iter] = array[mid + 1 + right_iter];
+    int left_iter = start, right_iter = mid + 1, array_iter = start;
 
     /* Merge the subarrays back into the original array */
-    left_iter = right_iter = 0;
-    array_iter = start;
-
-    while (left_iter < left_size && right_iter < right_size)
+    while (left_iter <= mid && right_iter <= end)
     {
-        if (left[left_iter] <= right[right_iter])
-        {
-            array[array_iter] = left[left_iter];
-            left_iter++;
-        }
+        if (array[left_iter] <= array[right_iter])
+            temp[array_iter++] = array[left_iter++];
         else
-        {
-            array[array_iter] = right[right_iter];
-            right_iter++;
-        }
-        array_iter++;
+            temp[array_iter++] = array[right_iter++];
     }
 
-    /* Copy remaining elements of left subarray if any */
-    while (left_iter < left_size)
-    {
-        array[array_iter] = left[left_iter];
-        left_iter++;
-        array_iter++;
-    }
+    /* Copy remaining elements of the left subarray if any */
+    while (left_iter <= mid)
+        temp[array_iter++] = array[left_iter++];
 
-    /* Copy remaining elements of right subarray if any */
-    while (right_iter < right_size)
-    {
-        array[array_iter] = right[right_iter];
-        right_iter++;
-        array_iter++;
-    }
+    /* Copy remaining elements of the right subarray if any */
+    while (right_iter <= end)
+        temp[array_iter++] = array[right_iter++];
 
-    /* Print the merging process */
-    printf("Merging...\n[left]: ");
-    print_array(left, left_size);
-    printf("[right]: ");
-    print_array(right, right_size);
-
-
-    printf("[Done]: ");
-    print_array(&array[start], left_size + right_size);
-
-    /* Free the dynamically allocated memory */
-    free(left);
-    free(right);
+    /* Copy the sorted subarray back into the original array */
+    for (array_iter = start; array_iter <= end; array_iter++)
+        array[array_iter] = temp[array_iter];
 }
 
 /**
  * split_arrays - Recursively splits the array and merges subarrays.
  * @array: Pointer to the array of integers.
+ * @temp: A temporary buffer for merging.
  * @start: Starting index of the subarray.
  * @end: Ending index of the subarray.
  *
  * Return: None.
  */
-void split_arrays(int *array, int start, int end)
+void split_arrays(int *array, int *temp, int start, int end)
 {
     if (start < end)
     {
         int mid = start + (end - start) / 2;
 
         /* Recursively split and sort the left and right subarrays */
-        split_arrays(array, start, mid);
-        split_arrays(array, mid + 1, end);
+        split_arrays(array, temp, start, mid);
+        split_arrays(array, temp, mid + 1, end);
 
         /* Merge the sorted subarrays */
-        merge(array, start, mid, end);
+        merge(array, temp, start, mid, end);
     }
 }
 
@@ -113,6 +72,16 @@ void merge_sort(int *array, size_t size)
 {
     if (array && size >= 2)
     {
-        split_arrays(array, 0, size - 1);
+        /* Allocate a temporary buffer for merging */
+        int *temp = malloc(size * sizeof(int));
+
+        if (temp == NULL)
+            return;  /* Handle allocation failure */
+
+        /* Split and merge the array */
+        split_arrays(array, temp, 0, size - 1);
+
+        /* Free the temporary buffer */
+        free(temp);
     }
 }
