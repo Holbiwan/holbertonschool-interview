@@ -69,6 +69,7 @@ void merge(int *array, int start, int mid, int end)
     printf("[right]: ");
     print_array(right, right_size);
 
+
     printf("[Done]: ");
     print_array(&array[start], left_size + right_size);
 
