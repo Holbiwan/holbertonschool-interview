@@ -327,4 +327,4 @@ Merging...
 alexa@ubuntu-xenial:0x18-merge_sort$
 ```
 
-## Author  :  * **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
+## Author  :  **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
