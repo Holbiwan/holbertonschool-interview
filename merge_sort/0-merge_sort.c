@@ -14,7 +14,14 @@ void merge(int *array, int *temp, int start, int mid, int end)
 {
     int left_iter = start, right_iter = mid + 1, array_iter = start;
 
-    /* Merge the subarrays back into the original array */
+    /* Print the merging process */
+    printf("Merging...\n");
+    printf("[left]: ");
+    print_array(&array[start], mid - start + 1);
+    printf("[right]: ");
+    print_array(&array[mid + 1], end - mid);
+
+    /* Merge the subarrays back into the temporary array */
     while (left_iter <= mid && right_iter <= end)
     {
         if (array[left_iter] <= array[right_iter])
@@ -34,6 +41,10 @@ void merge(int *array, int *temp, int start, int mid, int end)
     /* Copy the sorted subarray back into the original array */
     for (array_iter = start; array_iter <= end; array_iter++)
         array[array_iter] = temp[array_iter];
+
+    /* Print the result of the merging */
+    printf("[Done]: ");
+    print_array(&array[start], end - start + 1);
 }
 
 /**
