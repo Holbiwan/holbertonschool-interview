@@ -19,7 +19,6 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    # Sort coins in descending order to use the largest denominations first
     coins.sort(reverse=True)
     num_coins = 0
 
