@@ -27,7 +27,7 @@ def island_perimeter(grid):
         for col in range(cols):
             if grid[row][col] == 1:
                 # Check each possible sides (top, bottom, left, right)
-                # and add to perimeter if there's water
+                # and add to perimeter if there's water.
 
                 # Check top
                 if row == 0 or grid[row - 1][col] == 0:
