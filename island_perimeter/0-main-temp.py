@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """
-0-main
+Temporary main file to test 0-island_perimeter
 """
-island_perimeter = __import__('island_perimeter_temp').island_perimeter
+island_perimeter_module = __import__('0-island_perimeter')
+island_perimeter = island_perimeter_module.island_perimeter
 
 if __name__ == "__main__":
     grid = [
