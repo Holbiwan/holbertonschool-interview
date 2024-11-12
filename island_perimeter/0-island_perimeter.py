@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Function returns perimeter of the island
+Module used to compute the perimeter of an island
 """
 
 
