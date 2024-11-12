@@ -1,15 +1,8 @@
 #!/usr/bin/python3
 """Returns the perimeter of the island."""
 
-
 def island_perimeter(grid):
-    """
-Calculate the perimeter of an island in a grid.
-    Args:
-    grid (list of list of int): The grid representing the island.
-Returns:
-        int: The perimeter of the island.
-    """
+    """Calculate the perimeter of an island in a grid."""
     count = 0
     row = len(grid)
     col = len(grid[0]) if row else 0
