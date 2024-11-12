@@ -2,7 +2,7 @@
 """
 0-main
 """
-island_perimeter = __import__('0-island_perimeter').island_perimeter
+island_perimeter = __import__('island_perimeter').island_perimeter
 
 if __name__ == "__main__":
     grid = [
@@ -12,4 +12,4 @@ if __name__ == "__main__":
         [0, 1, 1, 1, 0, 0],
         [0, 0, 0, 0, 0, 0]
     ]
-    print(island_perimeter(grid))
+    print(island_perimeter(grid))  # Expected output: 12
