@@ -1,7 +1,7 @@
-# REGEX
+![] (https://zupimages.net/up/24/50/q16f.png)
 
 
-Requirements
+Requirements 🚀
 General
 
 > - Allowed editors: vi, vim, emacs
@@ -17,7 +17,7 @@ You can use them to test your functions, but you don�t have to push them to yo
 > - Don't forget to push your header file
 > - All your header files should be include guarded
 
-## Task
+## Task 👩‍💻
 ### 0. Simple RegEx
 
 Mandatory
@@ -115,4 +115,4 @@ Holberton -> .olberton = 1
 !H@o#l$b%e^r&t(o)n_ -> !.@.#.$.%.^.&.(.)._ = 1
 ```
 
-## Author  :   **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
+✏ ## Author  :   **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
