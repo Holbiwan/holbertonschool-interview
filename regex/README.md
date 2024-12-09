@@ -1,4 +1,4 @@
-![] (https://zupimages.net/up/24/50/q16f.png)
+![](https://zupimages.net/up/24/50/q16f.png)
 
 
 Requirements 🚀
