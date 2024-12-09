@@ -115,4 +115,4 @@ Holberton -> .olberton = 1
 !H@o#l$b%e^r&t(o)n_ -> !.@.#.$.%.^.&.(.)._ = 1
 ```
 
-✏ ## Author  :   **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
+✏ Author  :   **Sabrina PAPEAU** - [Github](https://github.com/Holbiwan)
