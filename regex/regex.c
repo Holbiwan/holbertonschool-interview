@@ -9,17 +9,18 @@
  */
 int regex_match(char const *str, char const *pattern)
 {
-    if (!*pattern)
-        return (!*str);
+if (!*pattern)
+return (!*str);
 
-    int check_dot = *str && (*str == *pattern || *pattern == '.');
+int check_dot = *str && (*str == *pattern || *pattern == '.');
 
-    if (*(pattern + 1) == '*')
-        return (regex_match(str, pattern + 2) || 
-                (check_dot && regex_match(str + 1, pattern)));
+if (*(pattern + 1) == '*')
+return (regex_match(str, pattern + 2) ||
+(check_dot && regex_match(str + 1, pattern)));
 
-    if (check_dot)
-        return (regex_match(str + 1, pattern + 1));
+if (check_dot)
+return (regex_match(str + 1, pattern + 1));
 
-    return (0);
+return (0);
 }
+
