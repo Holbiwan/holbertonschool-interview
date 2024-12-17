@@ -8,7 +8,7 @@
  * @s: String to get length of
  * Return: Length of the string
  */
-int _strlen(char const *s)
+int _strlen(const char *s)
 {
 	int i = 0;
 
@@ -24,7 +24,7 @@ int _strlen(char const *s)
  * @n: Maximum compare length
  * Return: 0 if the same, 1 otherwise
  */
-int _strncmp(char const *s1, char const *s2, int n)
+int _strncmp(const char *s1, const char *s2, int n)
 {
 	int i = 0;
 
@@ -38,18 +38,68 @@ int _strncmp(char const *s1, char const *s2, int n)
 }
 
 /**
- * find_substring - Finds starting indices of substrings formed by concatenation
+ * reset_wordused - Reset the wordused array to 0
+ * @wordused: Array to reset
+ * @nb_words: Number of words
+ */
+void reset_wordused(int *wordused, int nb_words)
+{
+	int i;
+
+	for (i = 0; i < nb_words; i++)
+		wordused[i] = 0;
+}
+
+/**
+ * match_words - Match words in the substring of s
+ * @s: Substring to search
+ * @words: Array of words to match
+ * @wordused: Array to track used words
+ * @nb_words: Number of words
+ * @wordlen: Length of each word
+ * Return: 1 if all words match, 0 otherwise
+ */
+int match_words(const char *s, const char **words, int *wordused,
+		      int nb_words, int wordlen)
+{
+	int i, j, matched, wordcount = nb_words;
+
+	for (i = 0; i < nb_words; i++)
+		wordused[i] = 0;
+
+	while (wordcount > 0)
+	{
+		matched = 0;
+		for (j = 0; j < nb_words; j++)
+		{
+			if (!wordused[j] && !_strncmp(s, words[j], wordlen))
+			{
+				wordused[j] = 1;
+				s += wordlen;
+				wordcount--;
+				matched = 1;
+				break;
+			}
+		}
+		if (!matched)
+			return (0);
+	}
+	return (1);
+}
+
+/**
+ * find_substring - Finds starting indices of substrings done by concatenation
  *                  of a list of words in any order exactly once each.
  * @s: String to search
- * @words: Array of words to look for into
+ * @words: array of words to look for into
  * @nb_words: Number of words in the array
  * @n: Variable to return number of indices found
  * Return: NULL on failure, or array of indices substring is found at
  */
-int *find_substring(char const *s, char const **words, int nb_words, int *n)
+int *find_substring(const char *s, const char **words, int nb_words, int *n)
 {
 	int *found, *wordused;
-	int len, i, j, k, wordcount, wordlen;
+	int len, wordlen, i;
 
 	if (nb_words == 0 || n == NULL || s == NULL || words == NULL)
 		return (NULL);
@@ -68,39 +118,10 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 		return (NULL);
 	}
 
-	*n = 0; /* Initialize number of matches found */
-
-	/* Iterate over the main string */
+	*n = 0;
 	for (i = 0; i <= len - wordlen * nb_words; i++)
 	{
-		for (k = 0; k < nb_words; k++)
-			wordused[k] = 0;
-
-		wordcount = nb_words;
-		k = i;
-
-		/* Check if substring matches all words in any order */
-		while (wordcount > 0)
-		{
-			int matched = 0;
-
-			for (j = 0; j < nb_words; j++)
-			{
-				if (!wordused[j] && !_strncmp(s + k, words[j], wordlen))
-				{
-					wordused[j] = 1;
-					wordcount--;
-					k += wordlen;
-					matched = 1;
-					break;
-				}
-			}
-
-			if (!matched) /* No match found for the current segment */
-				break;
-		}
-
-		if (wordcount == 0) /* All words matched */
+		if (match_words(s + i, words, wordused, nb_words, wordlen))
 		{
 			found[*n] = i;
 			(*n)++;
@@ -108,12 +129,10 @@ int *find_substring(char const *s, char const **words, int nb_words, int *n)
 	}
 
 	free(wordused);
-
-	if (*n == 0) /* No matches found */
+	if (*n == 0)
 	{
 		free(found);
 		return (NULL);
 	}
-
 	return (found);
 }
